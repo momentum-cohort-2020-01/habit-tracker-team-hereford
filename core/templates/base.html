@@ -7,13 +7,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% endblock meta %}
-  <link rel="stylesheet" type="text/css" href={% static "style/style.css" %}"
+  <link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta.25/shoelace.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
   {% block title %}
   <title>Habit Tracker</title>
   {% endblock title %}
 </head>
 <body>
-  'hello world'
+  <header class='header'>
+    <h1>
+        <a href="#">HABITS!!!!!</a>
+    </h1>
+    <div class='login-links'>
+        {% if user.is_authenticated %}
+            <a href="#">Habits</a>
+            |
+            <a class='logout' href="/accounts/logout">Logout</a>
+        {% else %}
+            <a class='login' href="/accounts/login">Login</a>
+            |
+            <a class='register' href="/accounts/register">Register</a>
+        {% endif %}
+    </div>
+
+</header>
+
 
   {% block content %} {% endblock content %}
 </body>
