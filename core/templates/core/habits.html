@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+ {% for habit in habits %}
+<div>
+ <h2>{{habit.title}}</h2>
+
+ My goal is {{habit.goal}} {{habit.units}} per day
+</div>
+
+ {% endfor %}
+
+{% endblock %}

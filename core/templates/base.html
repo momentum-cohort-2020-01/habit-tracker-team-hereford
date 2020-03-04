@@ -20,7 +20,7 @@
     </h1>
     <div class='login-links'>
         {% if user.is_authenticated %}
-            <a href="#">Habits</a>
+            <a href="{% url 'habits' %}">Habits</a>
             |
             <a class='logout' href="/accounts/logout">Logout</a>
         {% else %}

@@ -22,7 +22,10 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name="home"),
-    path('accounts/', include('registration.backends.default.urls'))
+    path('accounts/', include('registration.backends.default.urls')),
+    path('habits/', views.habits, name="habits"),
+    path('user_record/<int:pk>', views.user_record, name="user_record"),
+
 ]
 
 if settings.DEBUG:
