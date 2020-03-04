@@ -18,7 +18,7 @@ class Habit(models.Model):
 
 class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    date = models.DateField(auto_now=True)
+    date = models.DateField(blank=True, null=True)
     achievement = models.PositiveIntegerField(default=0)
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
@@ -26,7 +26,10 @@ class Record(models.Model):
         User, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.username}'s {self.habit.title} on {self.date}"
+        return f"{self.owner.username}'s {self.habit.title} on {self.date}"
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['date', 'habit', 'owner'], name='unique_record')]
 
 
 class Observer(models.Model):
