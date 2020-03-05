@@ -2,6 +2,12 @@
 
 {% block content %}
 
+{% if warning %}
+    <p class='warning'>
+        That {{type}} already exists.  Would you like to <a href="#">edit it</a>?
+    </p>
+{% endif %}
+
 <h2>Add a {{type}}</h2>
 <form action="" method="post">
     {% csrf_token %}
