@@ -39,13 +39,20 @@ def add_habit(request):
 @login_required(login_url='/accounts/login/')
 def add_record(request):
     if request.method == "POST":
+        user = request.user
+        habit = Habit.objects.get(pk=request.POST['habit'])
         form = RecordForm(request.POST)
         if form.is_valid():
-            record = form.save(commit=False)
-            record.owner = request.user
-            record.save()
-            habit_pk = record.habit.pk
-        return redirect('habit_records', habit_pk)
+            if Record.objects.filter(owner=user, date=request.POST['date'], habit=habit):
+                form = RecordForm()
+                context = {'form': form, 'type': 'record', 'warning': True}
+                return render(request, 'core/add_form.html', context=context)
+            else:
+                record = form.save(commit=False)
+                record.owner = user
+                record.save()
+                habit_pk = record.habit.pk
+                return redirect('habit_records', habit_pk)
     else:
         form = RecordForm()
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
