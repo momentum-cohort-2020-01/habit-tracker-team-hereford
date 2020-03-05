@@ -20,6 +20,10 @@ a {
   text-decoration: none;
   color: var(--title-color)
 }
+h1 {
+  font-family: 'Bungee', cursive;
+  font-size: 3rem;
+}
 
 .header {
   color: var(--title-color);
@@ -33,6 +37,7 @@ a {
   border: 10px double var(--main-text-color);
   border-radius: 70px;
   margin: auto;
+  margin-top: 2rem;
   /* box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.482); */
   /* position: fixed;
   top: 0; */
