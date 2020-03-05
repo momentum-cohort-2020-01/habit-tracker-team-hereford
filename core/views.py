@@ -49,3 +49,18 @@ def add_record(request):
     else:
         form = RecordForm()
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+
+@login_required(login_url='/accounts/login/')
+def habit_record(request, pk):
+    if request.method == "POST":
+        form = RecordForm(request.POST)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.owner = request.user
+            record.save()
+            habit_pk = record.habit.pk
+        return redirect('habit_records', habit_pk)
+    else:
+        habit = Habit.objects.get(pk=pk)
+        form = RecordForm(initial={'habit': habit})
+    return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})

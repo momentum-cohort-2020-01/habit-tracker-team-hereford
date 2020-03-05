@@ -5,11 +5,13 @@
 <div class="all-habits">
   {% for habit in habits %}
   <div class="habit-container">
+    <span class="infoicon">
     <section class='habit-content'>
-      <h2>{{habit.title}}</h2>
-      <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
-      <a href="{% url 'habit_records' habit.pk %}">My records for this habit</a>
+      <h2 class="title">{{habit.title}}</h2>
+      <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
+      <a class="button" href="{% url 'habit_record' habit.pk %}">+</a>
     </section>
+  </span>
   </div>
   {% endfor %}
 </div>
