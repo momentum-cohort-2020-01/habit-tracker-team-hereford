@@ -1,6 +1,7 @@
 :root {
   --main-text-color: #DAFFED;
   --main-bg-color: #1BE7FF;
+  --description-color:#288691;
   --title-color: #E4FF1A;
   --accent-color: #87FF65;
 }
@@ -52,20 +53,100 @@ h1 {
   margin: auto;
 }
 
-.habit-container {
-  width: max-content;
+/* .habit-container {
+  width: 200px;
+  height: 200px;
   margin: 1rem;
-  border: 10px double var(--main-text-color);
-  border-radius: 70px;
+  /* border: 10px double var(--main-text-color); */
+  /* border-radius: 30%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px 8px var(--accent-color);
+} */ 
+
+.habit-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  text-align: center;
+  /* width: 60%; */
+  position: relative;
+  padding: 180px 180px;
+  clip-path: circle(30% at 40% 40%);
+  transition: ease-in-out .3s;
+  background-color:whitesmoke;
+}
+.infoicon{
+  position:absolute;
+  top:100px;
+  right:70px;
+  font-size:2rem;
+  color:#000000;
+  transition:ease-out .3s;
+}
+.title{
+  display: flex;
+  margin:0;
+  font-size: 2rem;
+  /* line-height:1.8; */
+  justify-content: center;
+  align-items: center;
 }
 
-.habit-content {
-  text-align: center;
-  width: 60%;
+.description{
+  color: var(--description-color);
   display: flex;
+  font-size: 1.5rem;
+  line-height:1.6;
+  justify-content: center;
+  align-items: baseline;
+  margin: 1rem;
+}
+/* .record{
+  margin:0;
+  padding: 4px 0;
+  font-size: 1.5rem;
+} */
+/* .reference{
+  display:inline-block;
+  border-bottom: 1px solid transparent;
+  color:#0099ff;
+  text-decoration:none;
+  transition: ease-in .3s;
+} */
+.habit-containter:hover{
+     border-bottom-color: #0099ff;
+  }
+
+
+.habit-container:hover, .habit-container:focus{
+  clip-path: circle(70%);
+  border-radius:20px;
+  box-shadow: 0px 3px 9px rgba(0,0,0,0.12),
+              0px 3px 18px rgba(0,0,0,0.08);
+  background:#ffffff;
+  
+  outline:none;
+    .infoicon{
+    opacity: 0;
+  }
+}
+&:focus{
+  box-shadow: 0px 3px 9px rgba(0,0,0,0.12), 
+              0px 3px 18px rgba(0,0,0,0.08), 
+              0px 0px 0px 4px rgba(0,0,0,0.2);
+}
+
+
+.habit-content {
+  display: flex;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+  /* width: 60%; */
   flex-flow: column nowrap;
   align-items: center;
 }
@@ -101,4 +182,32 @@ th {
 td {
   padding: .2rem;
   text-align: center;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  font-size: 4rem;
+  color: var(--accent-color);
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
+  background-color: black;
+  border-radius: 70px;
+  margin: .5rem;
+}
+
+.buttondisp{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.submit-button {
+  
 }
