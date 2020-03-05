@@ -38,9 +38,29 @@ a {
   top: 0; */
 }
 
-.habitcontainer {
+.all-habits {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
+  align-items: center;
+  width: 80%;
+  padding: 2.5rem;
+  margin: auto;
+}
+
+.habit-container {
+  width: max-content;
+  margin: 1rem;
   border: 10px double var(--main-text-color);
   border-radius: 70px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.habit-content {
+  text-align: center;
+  width: 60%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }

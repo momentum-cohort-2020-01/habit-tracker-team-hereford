@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
- {% for habit in habits %}
-<div>
- <h2>{{habit.title}}</h2>
-
- My goal is {{habit.goal}} {{habit.units}} per day
+<div class="all-habits">
+  {% for habit in habits %}
+  <div class="habit-container">
+    <section class='habit-content'>
+      <h2>{{habit.title}}</h2>
+      <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
+      <a href="{% url 'habit_records' habit.pk %}">My records for this habit</a>
+    </section>
+  </div>
+  {% endfor %}
 </div>
 
- {% endfor %}
-
-{% endblock %}
+{% endblock content %}
