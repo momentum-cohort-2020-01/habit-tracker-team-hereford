@@ -16,7 +16,6 @@ def habits(request):
   return render(request, 'core/habits.html', context=context)
 
 def user_record(request):
-  user= User.objects.get(username=request.user.username)
-  
+  user= User.objects.get(username=request.user.username) 
   context={}
   return render(requerst, 'core/record.html', context=context)
