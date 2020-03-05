@@ -9,7 +9,10 @@
     <section class='habit-content'>
       <h2 class="title">{{habit.title}}</h2>
       <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
-      <a class="button" href="{% url 'habit_record' habit.pk %}">+</a>
+        <p class="buttondisp">
+          <a class ="button" href="{% url 'habit_records' habit.pk %}">=</a>
+          <a class="button" href="{% url 'habit_record' habit.pk %}">+</a>
+        </p>
     </section>
   </span>
   </div>
