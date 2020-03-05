@@ -29,7 +29,7 @@ class Record(models.Model):
         return f"{self.owner.username}'s {self.habit.title} on {self.date}"
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
         constraints = [models.UniqueConstraint(
             fields=['date', 'habit', 'owner'], name='unique_record')]
 
