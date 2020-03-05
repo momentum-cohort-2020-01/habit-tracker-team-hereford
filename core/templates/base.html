@@ -19,7 +19,7 @@
 
   <header class='header'>
     <h1>
-      <a href="#">My Habit Tracker</a>
+      <a href="{% url 'habits' %}">My Habit Tracker</a>
     </h1>
     <div class='login-links'>
       {% if user.is_authenticated %}

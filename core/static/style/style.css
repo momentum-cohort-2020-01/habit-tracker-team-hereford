@@ -64,3 +64,36 @@ a {
   flex-flow: column nowrap;
   align-items: center;
 }
+
+.habit-content h2 {
+  white-space: nowrap;
+}
+
+.center {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+
+/****** Preliminary Table styling ******/
+
+table {
+  border: 2px solid #333;
+  border-radius: 3px;
+}
+
+td {
+  border: 1px solid #333;
+  border-radius: 3px;
+}
+
+th {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+td {
+  padding: .2rem;
+  text-align: center;
+}
