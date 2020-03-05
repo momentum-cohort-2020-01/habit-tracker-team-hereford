@@ -79,6 +79,12 @@ h1 {
   transition: ease-in-out .3s;
   background-color:whitesmoke;
 }
+
+.habit-container:hover .description {
+  display: flex;
+  visibility: visible;
+
+}
 .infoicon{
   position:absolute;
   top:100px;
@@ -104,7 +110,20 @@ h1 {
   justify-content: center;
   align-items: baseline;
   margin: 1rem;
+  visibility: hidden;
 }
+
+/* .description:hover {
+  color: var(--description-color);
+  display: flex;
+  font-size: 1.5rem;
+  line-height:1.6;
+  justify-content: center;
+  align-items: baseline;
+  margin: 1rem;
+  visibility: visible;
+} */
+
 /* .record{
   margin:0;
   padding: 4px 0;
@@ -139,7 +158,6 @@ h1 {
               0px 3px 18px rgba(0,0,0,0.08), 
               0px 0px 0px 4px rgba(0,0,0,0.2);
 }
-
 
 .habit-content {
   display: flex;
@@ -203,10 +221,12 @@ td {
 }
 
 .buttondisp{
+  display: none;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
+
 
 .submit-button {
   
