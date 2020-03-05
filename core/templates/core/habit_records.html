@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="center">
+
+<div class="habit-container">
+    <section class='habit-content'>
+        <h2>{{habit.title}}</h2>
+        <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
+    </section>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Daily Records</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Date</td>
+            <td>Achievement (Goal: {{habit.goal}} per day) </td>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{record.date}}</td>
+            <td>{{record.achievement}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+{% endblock content %}
