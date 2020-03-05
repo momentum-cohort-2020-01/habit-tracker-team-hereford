@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 
 from django.contrib.auth.models import User
@@ -5,10 +6,14 @@ from django.contrib.auth.models import User
 
 class Habit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=64)
-    action = models.CharField(max_length=64)
-    units = models.CharField(max_length=64, default='times')
-    goal = models.PositiveIntegerField()
+    title = models.CharField(
+        max_length=64, help_text='The name of your new habit')
+    action = models.CharField(
+        max_length=64, help_text='What action are you performing for this habit?')
+    units = models.CharField(max_length=64, default='times',
+                             help_text='The units/how many times you want to do your habit daily')
+    goal = models.PositiveIntegerField(
+        help_text='How much you want accomplish daily')
     owner = models.ForeignKey(
         User, related_name='habits', on_delete=models.CASCADE)
 
@@ -18,8 +23,9 @@ class Habit(models.Model):
 
 class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    date = models.DateField(blank=True, null=True)
-    achievement = models.PositiveIntegerField(default=0)
+    date = models.DateField(default=date.today)
+    achievement = models.PositiveIntegerField(
+        default=0, help_text='How much/many times do you do your habit?')
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
     owner = models.ForeignKey(

@@ -7,9 +7,10 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.default.urls')),
-    path('', views.home, name="home"),
-    path('habits/', views.habits, name="habits"),
-    path('habit_records/<int:pk>', views.habit_records, name="habit_records"),
+    path('', views.habits, name='habits'),
+    path('habit_records/<int:pk>', views.habit_records, name='habit_records'),
+    path('add_habit/', views.add_habit, name='add_habit'),
+    path('add_record/', views.add_record, name='add_record'),
 
 ]
 
