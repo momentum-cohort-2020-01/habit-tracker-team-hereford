@@ -33,6 +33,12 @@
       <a class='register' href="/accounts/register">Register</a>
       {% endif %}
     </div>
+
+    <div>
+      <a href="{% url 'add_habit' %}">Add a new habit</a>
+      |
+      <a href="{% url 'add_record' %}">Add a new record</a>
+    </div>
   </header>
 
   {% block content %}
