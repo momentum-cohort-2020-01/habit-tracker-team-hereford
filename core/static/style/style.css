@@ -52,14 +52,25 @@ h1 {
   margin: auto;
 }
 
-.habit-container {
-  width: max-content;
+/* .habit-container {
+  width: 200px;
+  height: 200px;
   margin: 1rem;
-  border: 10px double var(--main-text-color);
-  border-radius: 70px;
+  /* border: 10px double var(--main-text-color); */
+  /* border-radius: 30%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px 8px var(--accent-color);
+} */ 
+
+.habit-container {
+  position: relative;
+  padding: 40px 40px;
+  clip-path: circle(10% at 95% 20%);
+  transition: ease-in-out .3s;
+  background-color:whitesmoke;
 }
 
 .habit-content {
