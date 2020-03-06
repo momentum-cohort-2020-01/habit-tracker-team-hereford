@@ -42,7 +42,7 @@ class Record(models.Model):
 
 class Observer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
+    observer = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name='observations', blank=True, null=True)
     habit = models.ForeignKey(
         Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)

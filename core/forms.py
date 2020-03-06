@@ -18,3 +18,9 @@ class RecordForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(format=('%m/%d/%Y'), attrs={'type': 'date'})
         }
+
+class ObserverForm(forms.ModelForm):
+
+      class Meta:
+        model = Observer
+        fields = ('user',)

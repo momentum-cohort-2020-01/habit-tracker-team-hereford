@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Habit, Record, Observer
-from .forms import HabitForm, RecordForm
+from .forms import HabitForm, RecordForm, ObserverForm
 
 
 @login_required(login_url='/accounts/login')
@@ -93,3 +93,15 @@ def bar_chart(request, pk):
         'labels': labels,
         'data': data,
     })
+
+@login_required(login_url='/accounts/login/')
+def add_observer(request, pk):
+    if request.method == "POST":
+        form = ObserverForm(request.POST)
+        if form.is_valid():
+            observer = form.save(commit=False)
+            habit = Habit.object.get(pk=pk)
+            observer.habit = habit
+
+    form = ObserverForm()
+    return render(request, 'core/add_form.html', {'form': form})
