@@ -12,6 +12,7 @@ urlpatterns = [
     path('habit-records/<int:pk>', views.habit_records, name='habit_records'),
     path('add-habit/', views.add_habit, name='add_habit'),
     path('add-record/', views.add_record, name='add_record'),
+    path('add-observer/<int:pk>', views.add_observer, name='add_observer'),
 ]
 
 if settings.DEBUG:
