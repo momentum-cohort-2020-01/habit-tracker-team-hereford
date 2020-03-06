@@ -23,4 +23,4 @@ class ObserverForm(forms.ModelForm):
 
       class Meta:
         model = Observer
-        fields = ('user',)
+        fields = ('observer',)
