@@ -34,10 +34,9 @@
       {% endif %}
     </div>
 
-    <div>
-      <a href="{% url 'add_habit' %}">Add a new habit</a>
-      |
-      <a href="{% url 'add_record' %}">Add a new record</a>
+    <div class="buttondisp">
+      <a class='header-button' href="{% url 'add_habit' %}">+ habit</a>
+      <a class='header-button' href="{% url 'add_record' %}">+ record</a>
     </div>
   </header>
 
