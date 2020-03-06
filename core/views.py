@@ -71,3 +71,17 @@ def habit_record(request, pk):
         habit = Habit.objects.get(pk=pk)
         form = RecordForm(initial={'habit': habit})
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+
+@login_required(login_url='/accounts/login/')
+def bar_chart(request, pk):
+  labels = []
+  data =[]
+  queryset = Habit.objects.order_by('-created_at')
+  for habit in queryset:
+    labels.append(habit.title)
+    data.append(habit.units)
+  
+  return render(request, 'core/habit_records.html', {
+    'labels':labels,
+    'data': data,
+  })

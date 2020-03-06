@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_habit/', views.add_habit, name='add_habit'),
     path('add_record/', views.add_record, name='add_record'),
     path('habit_record/<int:pk>', views.habit_record, name='habit_record'),
+    path('bar_chart/<int:pk>', views.bar_chart, name='bar_chart'),
 
 ]
 
