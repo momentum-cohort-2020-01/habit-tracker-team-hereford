@@ -13,8 +13,6 @@ urlpatterns = [
     path('add-habit/', views.add_habit, name='add_habit'),
     path('add-record/', views.add_record, name='add_record'),
     path('add-habit-record/<int:pk>', views.habit_record, name='add_habit_record'),
-
-
 ]
 
 if settings.DEBUG:

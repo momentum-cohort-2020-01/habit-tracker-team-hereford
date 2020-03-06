@@ -81,7 +81,4 @@ def bar_chart(request, pk):
     labels.append(habit.title)
     data.append(habit.units)
   
-  return render(request, 'core/habit_records.html', {
-    'labels':labels,
-    'data': data,
-  })
+  return render(request, 'core/habit_records.html', {'labels':labels,'data': data,})
