@@ -76,9 +76,8 @@ def habit_record(request, pk):
 def bar_chart(request, pk):
   labels = []
   data =[]
-  queryset = Habit.objects.order_by('-created_at')
+  queryset = Habit.objects.order_by('-created_at')[:5]
   for habit in queryset:
     labels.append(habit.title)
     data.append(habit.units)
-  
   return render(request, 'core/habit_records.html', {'labels':labels,'data': data,})
