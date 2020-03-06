@@ -44,6 +44,7 @@ h1 {
   top: 0; */
 }
 
+
 .all-habits {
   display: flex;
   flex-flow: row wrap;
@@ -213,8 +214,6 @@ td {
   justify-content: center;
   align-items: center;
   padding: 5px;
-  /* padding-left: 10px; */
-  /* padding-right: 10px; */
   background-color: black;
   border-radius: 70px;
   margin: .5rem;
@@ -227,7 +226,46 @@ td {
   flex-direction: row;
 }
 
+.header-button {
+  position: relative;
+  display: flex;
+  width: 65px;
+  height: 65px;
+  font-size: 1rem;
+  color: var(--title-color);
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: black;
+  border-radius: 70px;
+  margin: .5rem;
+  text-align: center;
+}
+
 
 .submit-button {
+  background-color: black;
+  padding:10px;
+  font-size: 1rem;
+  color: var(--accent-color);
+  /* font-family: 'Comfortaa', cursive; */
+  border-radius: 20px;
+  border: none;
+}
+
+.form-layout{
+  font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.form-page {
+  font-size: 1.5rem;
+  justify-content: space-around;
   
 }
+
