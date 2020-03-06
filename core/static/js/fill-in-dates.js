@@ -1,45 +1,36 @@
 /* requires moment */
 
-let dateCells = document.querySelectorAll('.date')
+const dateCells = document.querySelectorAll('.date')
+const initLength = dateCells.length
+const dataHolder = document.querySelector('#data-holder')
+const habitPK = dataHolder.dataset.pk
 
-if (dateCells.length > 1) {
-  let dateObjects = []
 
-  for (const cell of dateCells) {
-    const dateString = cell.textContent
-    const dateObject = moment(dateString, 'MMMM DD, YYYY')
-    dateObjects.push(dateObject)
-  }
+if (initLength > 1) {
+  const firstDate = moment(dateCells[0].textContent, 'MMMM D, YYYY')
+  const lastDate = moment(dateCells[initLength - 1].textContent, 'MMMM D, YYYY')
 
-  for (const date of dateObjects) {
-    let nextDate = date.clone()
-    nextDate.subtract(1, 'days')
-    if (!dateObjects.includes(nextDate)) {
-      const idx = dateObjects.indexOf(date)
-      dateObjects.splice(idx + 1, 0, nextDate)
+  // let day = firstDate.clone()
+
+  for (let day = firstDate; day.isAfter(lastDate); day.subtract(1, 'days')) {
+    const prevDay = day.clone()
+    prevDay.add(1, 'days')
+    const dateString = day.format('MMMM D, YYYY')
+    // console.log(dateString)
+    const cell = document.querySelector(`[data-date='${dateString}']`)
+    if (cell == null) {
+      addRow(prevDay, day)
     }
   }
-
-  for (const date in dateObjects) {
-
-  }
 }
 
-function addRow (dateObj) {
-  const dateString = dateObj.format('MMMM DD, YYYY')
-  console.log(dateString)
-  const rowAbove = document.querySelector(`[data-date='${dateString}']`)
+function addRow (prevDay, day) {
+  const prevDayString = prevDay.format('MMMM D, YYYY')
+  const dayString = day.format('MMMM D, YYYY')
+
+  const rowAbove = document.querySelector(`[data-date='${prevDayString}']`).closest('tr')
   const rowBelow = document.createElement('tr')
-  rowBelow.innerHTML = `<td class="date" data-date="${dateString}">${dateString}</td>
-  <td class="achievement"><a href="{% url 'add_habit_record' habit.pk %}">Add a record</a></td>`
+  rowBelow.innerHTML = `<td class="date" data-date="${dayString}">${dayString}</td>
+  <td class="achievement"><a href="/add-habit-record/${habitPK}">Add a record</a></td>`
   rowAbove.insertAdjacentElement('afterend', rowBelow)
 }
-
-// dateCell = document.createElement('td')
-// achvCell = document.createElement('td')
-// dateCell.classList.add('date')
-// dateCell.setAttribute('data-date', dateString)
-// dateCell.textContent = dateString
-// achvCell.classList.add('achievement')
-// formLink = document.createElement('a')
-// formLink

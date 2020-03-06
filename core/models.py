@@ -23,7 +23,7 @@ class Habit(models.Model):
 
 class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    date = models.DateField(default=date.today)
+    date = models.DateField(default=date.today, )
     achievement = models.PositiveIntegerField(
         default=0, help_text='How much/many times do you do your habit?')
     habit = models.ForeignKey(
