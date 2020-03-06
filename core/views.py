@@ -38,6 +38,8 @@ def add_habit(request):
 
 @login_required(login_url='/accounts/login/')
 def add_record(request):
+    get_habit_pk = request.GET.get('habit', -1)
+    get_date = request.GET.get('date', -1)
     if request.method == "POST":
         user = request.user
         habit = Habit.objects.get(pk=request.POST['habit'])
@@ -54,8 +56,13 @@ def add_record(request):
                 habit_pk = record.habit.pk
                 return redirect('habit_records', habit_pk)
     else:
-        form = RecordForm()
+        if not(get_date==-1 and get_habit_pk==-1):
+            habit = Habit.objects.get(pk=get_habit_pk)
+            form = RecordForm(initial={'habit': habit, 'date': get_date})
+        else:
+            form = RecordForm()
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+
 
 @login_required(login_url='/accounts/login/')
 def habit_record(request, pk):
@@ -71,3 +78,18 @@ def habit_record(request, pk):
         habit = Habit.objects.get(pk=pk)
         form = RecordForm(initial={'habit': habit})
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+
+
+@login_required(login_url='/accounts/login/')
+def bar_chart(request, pk):
+    labels = []
+    data = []
+    queryset = Habit.objects.order_by('-created_at')
+    for habit in queryset:
+        labels.append(habit.title)
+        data.append(habit.units)
+
+    return render(request, 'core/habit_records.html', {
+        'labels': labels,
+        'data': data,
+    })
