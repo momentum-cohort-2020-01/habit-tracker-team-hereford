@@ -24,8 +24,8 @@
         </tr>
         {% for record in records %}
         <tr>
-            <td>{{record.date}}</td>
-            <td>{{record.achievement}}</td>
+            <td class="date" data-date="{{record.date}}">{{record.date}}</td>
+            <td class="achievement">{{record.achievement}}</td>
         </tr>
         {% endfor %}
     </tbody>
