@@ -48,4 +48,4 @@ class Observer(models.Model):
         Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)
 
     def __str__(self):
-        return f"User: {self.user.pk} watches Habit: {self.habit.pk}"
+        return f"User: {self.observer.pk} watches Habit: {self.habit.pk}"

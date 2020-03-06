@@ -100,8 +100,10 @@ def add_observer(request, pk):
         form = ObserverForm(request.POST)
         if form.is_valid():
             observer = form.save(commit=False)
-            habit = Habit.object.get(pk=pk)
+            habit = Habit.objects.get(pk=pk)
             observer.habit = habit
-
-    form = ObserverForm()
+            observer.save()
+        return redirect('habit_records', pk)
+    else:
+        form = ObserverForm()
     return render(request, 'core/add_form.html', {'form': form})
