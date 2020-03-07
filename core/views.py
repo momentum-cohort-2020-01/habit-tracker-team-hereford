@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Habit, Record, Observer
@@ -79,6 +79,20 @@ def habit_record(request, pk):
         form = RecordForm(initial={'habit': habit})
     return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
 
+@login_required(login_url='/accounts/login/')
+def edit_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    if request.method == 'POST':
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            habit=form.save(commit=False)
+            form.save()
+        return redirect('habit_records', habit_pk)
+    else:
+            habit=Habit.object.get(pk=pk)
+            form = HabitForm(initial={'habit', habit})
+    return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+
 
 @login_required(login_url='/accounts/login/')
 def bar_chart(request, pk):
@@ -93,3 +107,4 @@ def bar_chart(request, pk):
         'labels': labels,
         'data': data,
     })
+
