@@ -256,6 +256,21 @@ td {
   border-radius: 20px;
   border: none;
 }
+.edit-button {
+  position: relative;
+  display: flex;
+  width: 67px;
+  height: 67px;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  font-weight: bolder;
+  align-items: center;
+  padding: 5px;
+  background-color: black;
+  border-radius: 70px;
+  margin: .5rem;
+  text-align: center;
+}
 
 .form-layout{
   font-size: 2rem;
@@ -272,7 +287,7 @@ td {
 .form-container {
   background-color: whitesmoke;
   width: 400px;
-  height: 250px;
+  height: 400px;
   padding: 2rem;
   border-radius: 70px;
   font-size: 1.5rem;

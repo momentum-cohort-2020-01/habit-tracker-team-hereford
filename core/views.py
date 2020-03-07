@@ -90,10 +90,24 @@ def edit_habit(request, pk):
             habit.save()
         return redirect('habit_records', habit_pk)
     else:
-        habit=Habit.object.get(pk=pk)
-        form = HabitForm(initial={'habit', habit})
-    return render(request, 'core/add_form.html', {'form': form, 'type': 'habit'})
+        habit=Habit.objects.get(pk=pk)
+        form = HabitForm(initial={'habit': habit})
+    return render(request, 'core/edit_habit.html', {'form': form, 'type': 'habit'})
 
+@login_required(login_url='/accounts/login/')
+def edit_record(request, pk):
+    record = get_object_or_404(Record, pk=pk)
+    if request.method == 'POST':
+        form = RecordForm(request.POST, instance=record)
+        if form.is_valid():
+            record=form.save(commit=False)
+            record.owner = request.user
+            record.save()
+        return redirect('habit_records', habit_pk)
+    else:
+        record=Record.objects.get(pk=pk)
+        form = RecordForm(initial={'type': 'record'})
+    return render(request, 'core/edit_record.html', {'form': form, 'type': 'record'})
 
 @login_required(login_url='/accounts/login/')
 def bar_chart(request, pk):

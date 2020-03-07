@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+{% if warning %}
+    <p class='warning'>
+        That {{type}} already exists.  Would you like to <a href="#">edit it</a>?
+    </p>
+{% endif %}
+<div class="form-layout">
+<h2>Edit {{habit.title}}</h2>
+<form class="form-page" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="submit-button" value='Submit'>
+</form>
+</div>
+</body>
+{% endblock %}
