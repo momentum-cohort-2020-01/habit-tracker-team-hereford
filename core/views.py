@@ -81,20 +81,6 @@ def habit_record(request, pk):
 
 
 @login_required(login_url='/accounts/login/')
-def bar_chart(request, pk):
-    labels = []
-    data = []
-    queryset = Habit.objects.order_by('-created_at')
-    for habit in queryset:
-        labels.append(habit.title)
-        data.append(habit.units)
-
-    return render(request, 'core/habit_records.html', {
-        'labels': labels,
-        'data': data,
-    })
-
-@login_required(login_url='/accounts/login/')
 def add_observer(request, pk):
     if request.method == "POST":
         form = ObserverForm(request.POST)
