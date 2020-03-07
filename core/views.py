@@ -17,9 +17,15 @@ def habits(request):
 def habit_records(request, pk):
     user = User.objects.get(username=request.user.username)
     habit = Habit.objects.get(pk=pk)
-    records = Record.objects.filter(owner=user, habit=habit)
-    context = {'records': records, 'habit': habit}
-    return render(request, 'core/habit_records.html', context=context)
+    owner = habit.owner
+    records = Record.objects.filter(owner=owner, habit=habit)
+    observers = habit.observers.all()
+    observers_usernames = [obs.observer.username for obs in observers]
+    context = {'records': records, 'habit': habit, 'observers': observers_usernames}
+    if user == owner:
+        return render(request, 'core/habit_records.html', context=context)
+    else:
+        return render(request, 'core/habit_records_observer.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -33,11 +39,13 @@ def add_habit(request):
         return redirect('habits')
     else:
         form = HabitForm()
-    return render(request, 'core/add_form.html', {'form': form, 'type': 'habit'})
+    context = {'form': form, 'type': 'habit'}
+    return render(request, 'core/add_form.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
 def add_record(request):
+    user = User.objects.get(username=request.user.username)
     get_habit_pk = request.GET.get('habit', -1)
     get_date = request.GET.get('date', -1)
     if request.method == "POST":
@@ -56,28 +64,16 @@ def add_record(request):
                 habit_pk = record.habit.pk
                 return redirect('habit_records', habit_pk)
     else:
-        if not(get_date==-1 and get_habit_pk==-1):
+        if not(get_date == -1 and get_habit_pk == -1):
             habit = Habit.objects.get(pk=get_habit_pk)
-            form = RecordForm(initial={'habit': habit, 'date': get_date})
+            form = RecordForm()
+            form.fields['habit'].queryset = user.habits
+            form.initial = {'habit': habit, 'date': get_date}
         else:
             form = RecordForm()
-    return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
-
-
-@login_required(login_url='/accounts/login/')
-def habit_record(request, pk):
-    if request.method == "POST":
-        form = RecordForm(request.POST)
-        if form.is_valid():
-            record = form.save(commit=False)
-            record.owner = request.user
-            record.save()
-            habit_pk = record.habit.pk
-        return redirect('habit_records', habit_pk)
-    else:
-        habit = Habit.objects.get(pk=pk)
-        form = RecordForm(initial={'habit': habit})
-    return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+            form.fields['habit'].queryset = user.habits
+    context = {'form': form, 'type': 'record'}
+    return render(request, 'core/add_form.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -85,10 +81,16 @@ def add_observer(request, pk):
     if request.method == "POST":
         form = ObserverForm(request.POST)
         if form.is_valid():
-            observer = form.save(commit=False)
             habit = Habit.objects.get(pk=pk)
-            observer.habit = habit
-            observer.save()
+            if Observer.objects.filter(observer=User.objects.get(pk=request.POST['observer']), habit=habit):
+                form = ObserverForm()
+                context = {'form': form, 'type': 'observer', 'warning': True}
+                return render(request, 'core/add_form.html', context=context)
+            else:
+                observer = form.save(commit=False)
+                observer.habit = habit
+                observer.save()
+                return redirect('habit_records', pk)
         return redirect('habit_records', pk)
     else:
         form = ObserverForm()

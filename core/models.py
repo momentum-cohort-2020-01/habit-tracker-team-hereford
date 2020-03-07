@@ -27,9 +27,9 @@ class Record(models.Model):
     achievement = models.PositiveIntegerField(
         default=0, help_text='How much/many times do you do your habit?')
     habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
+        Habit, on_delete=models.CASCADE, related_name='records')
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='records', blank=True, null=True)
+        User, on_delete=models.CASCADE, related_name='records')
 
     def __str__(self):
         return f"{self.owner.username}'s {self.habit.title} on {self.date}"
@@ -43,9 +43,14 @@ class Record(models.Model):
 class Observer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     observer = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='observations', blank=True, null=True)
+                                 related_name='observations')
     habit = models.ForeignKey(
-        Habit, on_delete=models.CASCADE, related_name='observers', blank=True, null=True)
+        Habit, on_delete=models.CASCADE, related_name='observers')
 
     def __str__(self):
-        return f"User: {self.observer.pk} watches Habit: {self.habit.pk}"
+        return f"User: {self.observer.pk} => Habit: {self.habit.pk}"
+
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['observer', 'habit'], name='unique_observers'),
+        ]

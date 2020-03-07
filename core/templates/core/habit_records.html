@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<div id='data-holder' data-pk={{habit.pk}}></div>
+{% if user.username in observers or user.username == habit.owner.username %}
+
+<div id='data-holder' data-pk={{habit.pk}} data-owner={{habit.owner.username}} data-user={{user.username}}>
+</div>
 
 <div class="center">
 
@@ -10,6 +13,17 @@
     <section class='habit-content'>
         <h2>{{habit.title}}</h2>
         <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
+    </section>
+
+    <section class='observers'>
+        {% if observers %}
+        <h3>Observers you've added to this habit:</h3>
+        <ul class="observer-list">
+            {% for observer in observers %}
+            <li>{{observer}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </section>
 </div>
 
@@ -34,5 +48,11 @@
 </table>
 
 </div>
+
+{% else %}
+<p class="warning">
+    {{user.username}} must be added as an observer by the owner of this habit to view this page.
+</p>
+{% endif %}
 
 {% endblock content %}
