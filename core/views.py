@@ -86,12 +86,13 @@ def edit_habit(request, pk):
         form = HabitForm(request.POST, instance=habit)
         if form.is_valid():
             habit=form.save(commit=False)
-            form.save()
+            habit.owner = request.user
+            habit.save()
         return redirect('habit_records', habit_pk)
     else:
-            habit=Habit.object.get(pk=pk)
-            form = HabitForm(initial={'habit', habit})
-    return render(request, 'core/add_form.html', {'form': form, 'type': 'record'})
+        habit=Habit.object.get(pk=pk)
+        form = HabitForm(initial={'habit', habit})
+    return render(request, 'core/add_form.html', {'form': form, 'type': 'habit'})
 
 
 @login_required(login_url='/accounts/login/')
