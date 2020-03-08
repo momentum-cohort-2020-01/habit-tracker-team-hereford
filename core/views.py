@@ -152,12 +152,12 @@ def add_observer(request, pk):
         elif added_obs == habit.owner:
             form = ObserverForm()
             context = {'form': form, 'type': 'observer',
-                        'message': 'You cannot add yourself as observer'}
+                       'message': 'You cannot add yourself as observer'}
             return render(request, 'core/add_form.html', context=context)
         elif Observer.objects.filter(observer=added_obs, habit=habit):
             form = ObserverForm()
             context = {'form': form, 'type': 'observer',
-                        'message': "You've already added that user as an observer"}
+                       'message': "You've already added that user as an observer"}
             return render(request, 'core/add_form.html', context=context)
         else:
             observer = Observer(habit=habit, observer=added_obs)
