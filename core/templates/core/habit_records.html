@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 
+
 {% block content %}
 
 {% if user.username in observers or user.username == habit.owner.username %}
@@ -29,7 +30,6 @@
             <a class="button button-space" href="{% url 'add_record' %}?habit={{habit.pk}}">+</a>
             <div class="buttondisp">
                 <a class="edit-button" href="{% url 'edit_habit' habit.pk %}">edit habit</a>
-                <a class="edit-button" href="{% url 'edit_record' habit.pk %}">edit record</a>
                 <a class="edit-button" href="{% url 'delete_habit' habit.pk %}">delete habit</a>
             </div>
         </section>
@@ -48,7 +48,12 @@
             </tr>
             {% for record in records %}
             <tr>
-                <td class="date" data-date="{{record.date}}">{{record.date}}</td>
+                <td class="date" data-date="{{record.date|date:'Y-m-d'}}">
+                    {{record.date}}
+                    <a href="/edit-record/?habit={{habit.pk}}&date={{record.date|date:'Y-m-d'}}">
+                        <i class="material-icons md-18">create</i>
+                    </a>
+                </td>
                 <td class="achievement">{{record.achievement}}</td>
             </tr>
             {% endfor %}
@@ -58,7 +63,7 @@
 </div>
 
 {% else %}
-<p class="warning">
+<p class=" warning">
     {{user.username}} must be added as an observer by the owner of this habit to view this page.
 </p>
 {% endif %}

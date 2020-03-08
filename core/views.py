@@ -80,7 +80,10 @@ def add_record(request):
 
 @login_required(login_url='/accounts/login/')
 def edit_habit(request, pk):
+    user = User.objects.get(username=request.user.username)
     habit = get_object_or_404(Habit, pk=pk)
+    if habit.owner != user:
+        return redirect('/')
     if request.method == 'POST':
         form = HabitForm(request.POST, instance=habit)
         if form.is_valid():
@@ -90,14 +93,20 @@ def edit_habit(request, pk):
         return redirect('habit_records', pk)
     else:
         habit = Habit.objects.get(pk=pk)
-        form = HabitForm(initial={'habit': habit})
+        form = HabitForm(instance=habit)
     context = {'form': form, 'type': 'habit'}
     return render(request, 'core/edit_habit.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
-def edit_record(request, pk):
-    record = get_object_or_404(Record, pk=pk)
+def edit_record(request):
+    habit_pk = request.GET.get('habit', -1)
+    date = request.GET.get('date', -1)
+    user = User.objects.get(username=request.user.username)
+    habit = get_object_or_404(Habit, pk=habit_pk)
+    if habit.owner != user:
+        return redirect('/')
+    record = get_object_or_404(Record, habit=habit, date=date)
     if request.method == 'POST':
         form = RecordForm(request.POST, instance=record)
         if form.is_valid():
@@ -106,8 +115,10 @@ def edit_record(request, pk):
             record.save()
         return redirect('habit_records', pk)
     else:
-        record = Record.objects.get(pk=pk)
-        form = RecordForm(initial={'type': 'record'})
+        # record = Record.objects.get(pk=pk)
+        form = RecordForm(
+            initial={'habit': habit, 'date': date, 'achievement': record.achievement})
+        form.fields['habit'].queryset = user.habits
     context = {'form': form, 'type': 'record'}
     return render(request, 'core/edit_record.html', context=context)
 
@@ -115,16 +126,22 @@ def edit_record(request, pk):
 @login_required(login_url='/accounts/login/')
 def delete_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
+    user = User.objects.get(username=request.user.username)
+    if habit.owner != user:
+        return redirect('/')
     habit.delete()
     return redirect('/')
 
 
 @login_required(login_url='/accounts/login/')
 def add_observer(request, pk):
+    user = User.objects.get(username=request.user.username)
     if request.method == "POST":
         form = ObserverForm(request.POST)
         if form.is_valid():
             habit = Habit.objects.get(pk=pk)
+            if habit.owner != user:
+                return redirect('/')
             if Observer.objects.filter(observer=User.objects.get(pk=request.POST['observer']), habit=habit):
                 form = ObserverForm()
                 context = {'form': form, 'type': 'observer', 'warning': True}
