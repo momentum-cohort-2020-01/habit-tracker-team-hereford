@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Habit, Record, Observer
@@ -21,7 +21,8 @@ def habit_records(request, pk):
     records = Record.objects.filter(owner=owner, habit=habit)
     observers = habit.observers.all()
     observers_usernames = [obs.observer.username for obs in observers]
-    context = {'records': records, 'habit': habit, 'observers': observers_usernames}
+    context = {'records': records, 'habit': habit,
+               'observers': observers_usernames}
     if user == owner:
         return render(request, 'core/habit_records.html', context=context)
     else:
@@ -74,6 +75,45 @@ def add_record(request):
             form.fields['habit'].queryset = user.habits
     context = {'form': form, 'type': 'record'}
     return render(request, 'core/add_form.html', context=context)
+
+
+@login_required(login_url='/accounts/login/')
+def edit_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    if request.method == 'POST':
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            habit = form.save(commit=False)
+            habit.owner = request.user
+            habit.save()
+        return redirect('habit_records', habit_pk)
+    else:
+        habit = Habit.objects.get(pk=pk)
+        form = HabitForm(initial={'habit': habit})
+    return render(request, 'core/edit_habit.html', {'form': form, 'type': 'habit'})
+
+
+@login_required(login_url='/accounts/login/')
+def edit_record(request, pk):
+    record = get_object_or_404(Record, pk=pk)
+    if request.method == 'POST':
+        form = RecordForm(request.POST, instance=record)
+        if form.is_valid():
+            record = form.save(commit=False)
+            record.owner = request.user
+            record.save()
+        return redirect('habit_records', habit_pk)
+    else:
+        record = Record.objects.get(pk=pk)
+        form = RecordForm(initial={'type': 'record'})
+    return render(request, 'core/edit_record.html', {'form': form, 'type': 'record'})
+
+
+@login_required(login_url='/accounts/login/')
+def delete_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    habit.delete()
+    return redirect('/')
 
 
 @login_required(login_url='/accounts/login/')

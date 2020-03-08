@@ -149,12 +149,12 @@ h1 {
               0px 3px 18px rgba(0,0,0,0.08);
   background:#ffffff;
   
-  outline:none;
+  /* outline:none;
     .infoicon{
     opacity: 0;
-  }
+  } */
 }
-&:focus{
+.habit-container:focus{
   box-shadow: 0px 3px 9px rgba(0,0,0,0.12), 
               0px 3px 18px rgba(0,0,0,0.08), 
               0px 0px 0px 4px rgba(0,0,0,0.2);
@@ -226,16 +226,19 @@ td {
   flex-direction: row;
 }
 
+.button-space {
+  margin: 2rem;
+}
+
 .header-button {
   position: relative;
   display: flex;
-  width: 65px;
-  height: 65px;
-  font-size: 1rem;
+  width: 67px;
+  height: 67px;
+  font-size: 1.1rem;
   color: var(--title-color);
   font-weight: bolder;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 5px;
   background-color: black;
   border-radius: 70px;
@@ -253,19 +256,47 @@ td {
   border-radius: 20px;
   border: none;
 }
+.edit-button {
+  position: relative;
+  display: flex;
+  width: 70px;
+  height: 70px;
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  font-weight: bolder;
+  align-items: center;
+  padding: 5px;
+  background-color: black;
+  border-radius: 70px;
+  margin: .5rem;
+  text-align: center;
+}
 
 .form-layout{
   font-size: 2rem;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  margin: 4rem;
+  align-self: auto;
+  justify-content: space-evenly;
 }
 
-.form-page {
+.form-container {
+  background-color: whitesmoke;
+  width: 400px;
+  height: 400px;
+  padding: 2rem;
+  border-radius: 70px;
   font-size: 1.5rem;
-  justify-content: space-around;
-  
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.table{
+  width: 400px;
+  font-size: 1rem;
 }
 
