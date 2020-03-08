@@ -7,7 +7,6 @@ const habitPK = dataHolder.dataset.pk
 const owner = dataHolder.dataset.owner
 const user = dataHolder.dataset.user
 
-
 if (initLength > 1) {
   const firstDate = moment(dateCells[0].textContent, 'MMMM D, YYYY')
   const lastDate = moment(dateCells[initLength - 1].textContent, 'MMMM D, YYYY')

@@ -4,12 +4,12 @@
 
 {% if user.username in observers or user.username == habit.owner.username %}
 
-<div class="logs-container">
+<div class="records-container">
 
     <div id='data-holder' data-pk={{habit.pk}} data-owner={{habit.owner.username}} data-user={{user.username}}>
     </div>
 
-    <div class="habit-logs-container">
+    <div class="habit-records-container">
 
 
         <div class="habit-container">
@@ -33,18 +33,18 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan="2">Daily logs</th>
+                    <th colspan="2">Daily records</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Date</td>
-                    <td>Achievement </td>
+                    <td>Achievement</td>
                 </tr>
-                {% for log in logs %}
+                {% for record in records %}
                 <tr>
-                    <td class="date" data-date="{{log.date}}">{{log.date}}</td>
-                    <td class="achievement">{{log.achievement}}</td>
+                    <td class="date" data-date="{{record.date}}">{{record.date}}</td>
+                    <td class="achievement">{{record.achievement}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
