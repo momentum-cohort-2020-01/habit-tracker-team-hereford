@@ -4,16 +4,22 @@
 
 <div id='data-holder' data-pk={{habit.pk}}></div>
 
-<div class="center">
+<div class="form-layout">
 
-<div class="habit-container">
+<div class="form-container">
     <section class='habit-content'>
         <h2>{{habit.title}}</h2>
         <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
+        <a class="button button-space" href="{% url 'add_record' %}?habit={{habit.pk}}">+</a>
+        <div class= "buttondisp">
+        <a class= "edit-button" href="{% url 'edit_habit' habit.pk %}">edit habit</a>
+        <a class= "edit-button" href="{% url 'edit_record' habit.pk %}">edit record</a>
+        <a class= "edit-button" href="{% url 'delete_habit' habit.pk %}">delete habit</a>
+        </div>
     </section>
 </div>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th colspan="2">Daily Records</th>
