@@ -110,6 +110,12 @@ def edit_record(request, pk):
     return render(request, 'core/edit_record.html', {'form': form, 'type': 'record'})
 
 @login_required(login_url='/accounts/login/')
+def delete_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
+    habit.delete()
+    return redirect('/')
+
+@login_required(login_url='/accounts/login/')
 def bar_chart(request, pk):
     labels = []
     data = []

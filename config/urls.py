@@ -14,6 +14,7 @@ urlpatterns = [
     path('add-record/', views.add_record, name='add_record'),
     path('edit-habit/<int:pk>', views.edit_habit, name='edit_habit'),
     path('edit_record/<int:pk>', views.edit_record, name='edit_record'),
+    path('delete_habit/<int:pk>', views.delete_habit, name='delete_habit'),   
 ]
 
 if settings.DEBUG:
