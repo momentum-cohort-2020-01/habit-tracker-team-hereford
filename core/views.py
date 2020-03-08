@@ -113,7 +113,7 @@ def edit_record(request):
             record = form.save(commit=False)
             record.owner = request.user
             record.save()
-        return redirect('habit_records', pk)
+        return redirect('habit_records', habit_pk)
     else:
         # record = Record.objects.get(pk=pk)
         form = RecordForm(
