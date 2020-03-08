@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from .models import Habit, Record, Observer
 from .forms import HabitForm, RecordForm, ObserverForm
 
@@ -136,22 +137,32 @@ def delete_habit(request, pk):
 @login_required(login_url='/accounts/login/')
 def add_observer(request, pk):
     user = User.objects.get(username=request.user.username)
+    habit = Habit.objects.get(pk=pk)
     if request.method == "POST":
-        form = ObserverForm(request.POST)
-        if form.is_valid():
-            habit = Habit.objects.get(pk=pk)
-            if habit.owner != user:
-                return redirect('/')
-            if Observer.objects.filter(observer=User.objects.get(pk=request.POST['observer']), habit=habit):
-                form = ObserverForm()
-                context = {'form': form, 'type': 'observer', 'warning': True}
-                return render(request, 'core/add_form.html', context=context)
-            else:
-                observer = form.save(commit=False)
-                observer.habit = habit
-                observer.save()
-                return redirect('habit_records', pk)
-        return redirect('habit_records', pk)
+        try:
+            added_obs = User.objects.get(username=request.POST['observer'])
+        except ObjectDoesNotExist:
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                       'message': "That is not a valid username"}
+            return render(request, 'core/add_form.html', context=context)
+
+        if habit.owner != user:
+            return redirect('/')
+        elif added_obs == habit.owner:
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                        'message': 'You cannot add yourself as observer'}
+            return render(request, 'core/add_form.html', context=context)
+        elif Observer.objects.filter(observer=added_obs, habit=habit):
+            form = ObserverForm()
+            context = {'form': form, 'type': 'observer',
+                        'message': "You've already added that user as an observer"}
+            return render(request, 'core/add_form.html', context=context)
+        else:
+            observer = Observer(habit=habit, observer=added_obs)
+            observer.save()
+            return redirect('habit_records', pk)
     else:
         form = ObserverForm()
     return render(request, 'core/add_form.html', {'form': form})
