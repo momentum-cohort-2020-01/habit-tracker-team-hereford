@@ -7,7 +7,12 @@
   You are an observer for the following habits:
   <ul>
     {% for ob in observations %}
-      <li>{{ob.habit.owner.username}}'s {{ob.habit.title}}</li>
+    <li>
+      {{ob.habit.owner.username}}'s
+      <a href="{% url 'habit_records' ob.habit.pk %}">
+        {{ob.habit.title}}
+      </a>
+    </li>
     {% endfor %}
   </ul>
 </section>
