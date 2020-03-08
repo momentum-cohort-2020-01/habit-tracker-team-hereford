@@ -2,6 +2,22 @@
 
 {% block content %}
 
+{% if observations %}
+<section class="observer-list">
+  You are an observer for the following habits:
+  <ul>
+    {% for ob in observations %}
+    <li>
+      {{ob.habit.owner.username}}'s
+      <a href="{% url 'habit_records' ob.habit.pk %}">
+        {{ob.habit.title}}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <div class="all-habits">
   {% for habit in habits %}
   <div class="habit-container">
@@ -10,11 +26,11 @@
       <h2 class="title truncate">{{habit.title}}</h2>
       <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
         <p class="buttondisp">
-          <a class ="button" href="{% url 'habit_records' habit.pk %}">=</a>
+          <a class="button" href="{% url 'habit_records' habit.pk %}">=</a>
           <a class="button" href="{% url 'add_record' %}?habit={{habit.pk}}">+</a>
         </p>
-    </section>
-  </span>
+      </section>
+    </span>
   </div>
   {% endfor %}
 </div>
