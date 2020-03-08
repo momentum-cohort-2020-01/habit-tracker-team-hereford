@@ -7,51 +7,53 @@
 <div id='data-holder' data-pk={{habit.pk}} data-owner={{habit.owner.username}} data-user={{user.username}}>
 </div>
 
+<section class='observers'>
+    <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
+    {% if observers %}
+    <h3>Observers you've added to this habit:</h3>
+    <ul class="observer-list">
+        {% for observer in observers %}
+        <li>{{observer}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</section>
+
+
 <div class="form-layout">
 
-<div class="form-container">
-    <section class='habit-content'>
-        <h2>{{habit.title}}</h2>
-        <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
-        <a class="button button-space" href="{% url 'add_record' %}?habit={{habit.pk}}">+</a>
-        <div class= "buttondisp">
-        <a class= "edit-button" href="{% url 'edit_habit' habit.pk %}">edit habit</a>
-        <a class= "edit-button" href="{% url 'edit_record' habit.pk %}">edit record</a>
-        <a class= "edit-button" href="{% url 'delete_habit' habit.pk %}">delete habit</a>
-        </div>
-    </section>
+    <div class="form-container">
+        <section class='habit-content'>
+            <h2>{{habit.title}}</h2>
+            <p>My goal is {{habit.goal}} {{habit.units}} per day.</p>
+            <a class="button button-space" href="{% url 'add_record' %}?habit={{habit.pk}}">+</a>
+            <div class="buttondisp">
+                <a class="edit-button" href="{% url 'edit_habit' habit.pk %}">edit habit</a>
+                <a class="edit-button" href="{% url 'edit_record' habit.pk %}">edit record</a>
+                <a class="edit-button" href="{% url 'delete_habit' habit.pk %}">delete habit</a>
+            </div>
+        </section>
+    </div>
 
-    <section class='observers'>
-        {% if observers %}
-        <h3>Observers you've added to this habit:</h3>
-        <ul class="observer-list">
-            {% for observer in observers %}
-            <li>{{observer}}</li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="2">Daily Records</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Date</td>
+                <td>Achievement (Goal: {{habit.goal}} per day) </td>
+            </tr>
+            {% for record in records %}
+            <tr>
+                <td class="date" data-date="{{record.date}}">{{record.date}}</td>
+                <td class="achievement">{{record.achievement}}</td>
+            </tr>
             {% endfor %}
-        </ul>
-        {% endif %}
-    </section>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th colspan="2">Daily Records</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Date</td>
-            <td>Achievement (Goal: {{habit.goal}} per day) </td>
-        </tr>
-        {% for record in records %}
-        <tr>
-            <td class="date" data-date="{{record.date}}">{{record.date}}</td>
-            <td class="achievement">{{record.achievement}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 </div>
 

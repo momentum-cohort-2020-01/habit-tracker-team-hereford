@@ -9,7 +9,8 @@ from .forms import HabitForm, RecordForm, ObserverForm
 def habits(request):
     user = User.objects.get(username=request.user.username)
     habits = user.habits.all()
-    context = {'habits': habits}
+    observations = user.observations.all()
+    context = {'habits': habits, 'observations': observations}
     return render(request, 'core/habits.html', context=context)
 
 
@@ -90,7 +91,8 @@ def edit_habit(request, pk):
     else:
         habit = Habit.objects.get(pk=pk)
         form = HabitForm(initial={'habit': habit})
-    return render(request, 'core/edit_habit.html', {'form': form, 'type': 'habit'})
+    context = {'form': form, 'type': 'habit'}
+    return render(request, 'core/edit_habit.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
@@ -106,7 +108,8 @@ def edit_record(request, pk):
     else:
         record = Record.objects.get(pk=pk)
         form = RecordForm(initial={'type': 'record'})
-    return render(request, 'core/edit_record.html', {'form': form, 'type': 'record'})
+    context = {'form': form, 'type': 'record'}
+    return render(request, 'core/edit_record.html', context=context)
 
 
 @login_required(login_url='/accounts/login/')
