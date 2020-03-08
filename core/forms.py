@@ -24,3 +24,9 @@ class ObserverForm(forms.ModelForm):
       class Meta:
         model = Observer
         fields = ('observer',)
+        widgets = {
+            'observer': forms.TextInput()
+        }
+        help_texts = {
+            'observer': "Username of the person you'd like to add as an observer to this habit (case-sensitive)",
+        }
