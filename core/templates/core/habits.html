@@ -7,7 +7,7 @@
   <div class="habit-container">
     <span class="infoicon">
     <section class='habit-content'>
-      <h2 class="title">{{habit.title}}</h2>
+      <h2 class="title truncate">{{habit.title}}</h2>
       <p class="description">My goal is {{habit.goal}} {{habit.units}} per day.</p>
         <p class="buttondisp">
           <a class ="button" href="{% url 'habit_records' habit.pk %}">=</a>
