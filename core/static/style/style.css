@@ -2,7 +2,7 @@
   --main-text-color: #DAFFED;
   --main-bg-color: #1BE7FF;
   --description-color: #288691;
-  --title-color: rgb(10, 125, 255);
+  --title-color: #E4FF1A;
   --accent-color: #87FF65;
 }
 
@@ -75,10 +75,11 @@ h1 {
   flex-direction: row;
   align-content: center;
   text-align: center;
-  /* width: 60%; */
+  align-items: center;
+  width: 30%;
   position: relative;
   padding: 180px 180px;
-  clip-path: circle(30% at 40% 40%);
+  clip-path: circle(30% at 50% 40%);
   transition: ease-in-out .3s;
   background-color: whitesmoke;
 }
@@ -90,8 +91,9 @@ h1 {
 
 .infoicon {
   position: absolute;
-  top: 100px;
+  top: 110px;
   right: 70px;
+  left: 70px;
   font-size: 2rem;
   color: #000000;
   transition: ease-out .3s;
@@ -124,16 +126,6 @@ h1 {
   visibility: hidden;
 }
 
-/* .description:hover {
-  color: var(--description-color);
-  display: flex;
-  font-size: 1.5rem;
-  line-height:1.6;
-  justify-content: center;
-  align-items: baseline;
-  margin: 1rem;
-  visibility: visible;
-} */
 
 /* .record{
   margin:0;
@@ -191,22 +183,28 @@ h1 {
 /****** Preliminary Table styling ******/
 
 table {
-  border: 2px solid #333;
+  border: 2px solid var(--main-text-color);
   border-radius: 3px;
+  
 }
 
 td {
-  border: 1px solid #333;
+  border: 1px solid var(--main-text-color);
   border-radius: 3px;
 }
 
 th {
   font-size: 1.2rem;
   font-weight: bold;
+  color: whitesmoke;
+  width: 200px;
+  
 }
 
 td {
   padding: .2rem;
+  text-align: center;
+  width: 200px;
   text-align: center;
 }
 
@@ -240,12 +238,12 @@ td {
 .header-button {
   position: relative;
   display: flex;
-  width: 67px;
-  height: 67px;
+  width: 69px;
+  height: 69px;
   font-size: 1.1rem;
   color: var(--title-color);
   font-weight: bolder;
-  align-items: flex-start;
+  align-items: center;
   padding: 5px;
   background-color: black;
   border-radius: 70px;
@@ -283,19 +281,18 @@ td {
   font-size: 2rem;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  /* flex-direction: column; */
   align-content: center;
   justify-content: center;
-  margin: 4rem;
+  margin: 5rem;
   align-self: auto;
-  justify-content: space-evenly;
 }
 
 .form-container {
   background-color: whitesmoke;
   width: 400px;
   height: 400px;
-  padding: 2rem;
+  padding: 4rem;
   border-radius: 70px;
   font-size: 1.5rem;
   justify-content: space-evenly;
@@ -303,7 +300,6 @@ td {
 }
 
 .table {
-  /* width: 400px; */
   width: max-content;
   font-size: 1rem;
 }
@@ -324,4 +320,22 @@ input, select {
   align-items: center;
   /* justify-content: left; */
   text-align: left;
+}
+
+.observers {
+  font-size: 1rem;
+  padding: 2rem;
+}
+
+
+.ob-list {
+  list-style-type: none;
+  text-align: center;
+  padding: 1rem;
+}
+
+.form-header {
+  font-size: 2rem;
+  color: var(--title-color);
+  padding-bottom: 2rem;
 }

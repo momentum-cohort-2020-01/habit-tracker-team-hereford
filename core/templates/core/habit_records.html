@@ -8,7 +8,7 @@
 <div id='data-holder' data-pk={{habit.pk}} data-owner={{habit.owner.username}} data-user={{user.username}}>
 </div>
 
-<section class='observers'>
+<!-- <section class='observers'>
     <a href="{% url 'add_observer' habit.pk%}">Add an observer</a>
     {% if observers %}
     <h3>Observers you've added to this habit:</h3>
@@ -18,11 +18,12 @@
         {% endfor %}
     </ul>
     {% endif %}
-</section>
+</section> -->
 
 
 <div class="form-layout">
-
+    
+    <div>
     <div class="form-container">
         <section class='habit-content'>
             <h2>{{habit.title}}</h2>
@@ -33,6 +34,18 @@
                 <a class="edit-button" href="{% url 'delete_habit' habit.pk %}">delete habit</a>
             </div>
         </section>
+    </div>
+    <section class='observers'>
+        <a class = 'submit-button' href="{% url 'add_observer' habit.pk%}">Add an observer</a>
+        {% if observers %}
+        <h3 class='ob-list'>Observers you've added to this habit:</h3>
+        <ul class="observer-list">
+            {% for observer in observers %}
+            <li>{{observer}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
     </div>
 
     <table class="table">
@@ -61,6 +74,7 @@
     </table>
 
 </div>
+
 
 {% else %}
 <p class=" warning">
