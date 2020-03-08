@@ -87,7 +87,7 @@ def edit_habit(request, pk):
             habit = form.save(commit=False)
             habit.owner = request.user
             habit.save()
-        return redirect('habit_records', habit_pk)
+        return redirect('habit_records', pk)
     else:
         habit = Habit.objects.get(pk=pk)
         form = HabitForm(initial={'habit': habit})
@@ -104,7 +104,7 @@ def edit_record(request, pk):
             record = form.save(commit=False)
             record.owner = request.user
             record.save()
-        return redirect('habit_records', habit_pk)
+        return redirect('habit_records', pk)
     else:
         record = Record.objects.get(pk=pk)
         form = RecordForm(initial={'type': 'record'})
