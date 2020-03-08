@@ -43,7 +43,9 @@
                 </tr>
                 {% for record in records %}
                 <tr>
-                    <td class="date" data-date="{{record.date}}">{{record.date}}</td>
+                    <td class="date" data-date="{{record.date|date:'Y-m-d'}}">
+                        {{record.date}}
+                    </td>
                     <td class="achievement">{{record.achievement}}</td>
                 </tr>
                 {% endfor %}
